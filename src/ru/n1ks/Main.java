@@ -17,7 +17,7 @@ class Main {
 
         showMessage("Welcome to HTTP Server");
         showMessage("---------------------------------------------------");
-        showMessage("Debug information below; x for exit");
+        showMessage("Debug information below; x for exit, y for send");
         showMessage("---------------------------------------------------");
         XHttpServer server = new XHttpServer(19910);
 
@@ -26,6 +26,24 @@ class Main {
             String str = br.readLine();
             if (str.toLowerCase().equals("x")) {
                 break;
+            }
+            if (str.toLowerCase().equals("y")){
+                showMessage("Enter URL:");
+                String url = br.readLine();
+                showMessage("Enter method:");
+                String method = br.readLine();
+                showMessage("Enter data:");
+                String data = br.readLine();
+                try {
+                    XHttpClient client = new XHttpClient(url, method, data);
+                    String ret = client.request();
+                    showMessage("---------------------------------------------------");
+                    showMessage("RET " + ret);
+                    showMessage("---------------------------------------------------");
+                } catch (IOException e){
+                    showMessage("ERR: " + e.getMessage());
+                }
+
             }
         }
         showMessage("---------------------------------------------------");
