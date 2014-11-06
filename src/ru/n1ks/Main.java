@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
-public class Main {
-    private static PrintWriter pw = new PrintWriter(System.out,true);
+class Main {
+    private static final PrintWriter pw = new PrintWriter(System.out,true);
 
     static synchronized public void showMessage(String msg){
         pw.println(msg);
