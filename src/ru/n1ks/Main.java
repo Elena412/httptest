@@ -1,12 +1,10 @@
 package ru.n1ks;
 
-import com.sun.net.httpserver.HttpServer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetSocketAddress;
 
 public class Main {
     private static PrintWriter pw = new PrintWriter(System.out,true);
@@ -15,19 +13,13 @@ public class Main {
         pw.println(msg);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
-        showMessage("Welcome to HTTP Echo Server");
-        showMessage("-----------------------------------");
-        HttpServer server = HttpServer.create(new InetSocketAddress(19910),0);
-        server.createContext("/httpecho", new HttpEchoHandler());
-        server.setExecutor(null);
-        showMessage("server ready for starting...");
-        server.start();
-        showMessage("...server started.");
-        showMessage("-----------------------------------");
+        showMessage("Welcome to HTTP Server");
+        showMessage("---------------------------------------------------");
         showMessage("Debug information below; x for exit");
-        showMessage("-----------------------------------");
+        showMessage("---------------------------------------------------");
+        XHttpServer server = new XHttpServer(19910);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         for (;;) {
@@ -36,9 +28,10 @@ public class Main {
                 break;
             }
         }
-        showMessage("-----------------------------------");
+        showMessage("---------------------------------------------------");
         showMessage("Server stopping...");
-        server.stop(3);
+        server.serverStop();
+        server.join();
         showMessage("...server stopped.");
         showMessage("Bye.");
     }
